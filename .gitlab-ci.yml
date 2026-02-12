@@ -20,7 +20,13 @@ backend_test:
   before_script:
     - cd backend
   script:
-    - mvn clean test
+    # run tests but keep exit code
+    - mvn clean test; TEST_EXIT=$?
+    # create placeholder files so GitLab artifacts won't fail
+    - mkdir -p target/surefire-reports target/site/jacoco
+    - echo "placeholder" > target/surefire-reports/.keep
+    - echo "placeholder" > target/site/jacoco/.keep
+    - exit $TEST_EXIT
   artifacts:
     when: always
     expire_in: 14 days
@@ -33,12 +39,15 @@ backend_test:
 # -------------------------
 frontend_test:
   stage: test
-  image: node:20
+  image: cypress/browsers:node20.11.0-chrome119-ff120
   before_script:
     - cd frontend
     - npm ci
   script:
-    - npm test -- --watch=false --browsers=ChromeHeadless --code-coverage
+    - npm test -- --watch=false --browsers=ChromeHeadless --code-coverage; TEST_EXIT=$?
+    - mkdir -p coverage
+    - echo "placeholder" > coverage/.keep
+    - exit $TEST_EXIT
   artifacts:
     when: always
     expire_in: 14 days
