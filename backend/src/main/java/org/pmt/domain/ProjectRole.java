@@ -1,0 +1,1 @@
+package org.pmt.domain; public enum ProjectRole { ADMIN, MEMBER, VIEWER }

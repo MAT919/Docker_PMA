@@ -1,0 +1,19 @@
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/pmt_db?currentSchema=pmt
+    username: postgres
+    password: dima9494
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        default_schema: pmt
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web.exposure.include: health,info

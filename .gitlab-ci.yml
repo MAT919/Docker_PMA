@@ -1,0 +1,79 @@
+stages:
+  - test
+  - build
+
+cache:
+  paths:
+    - backend/.m2/repository
+    - frontend/node_modules/
+
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=backend/.m2/repository"
+  NODE_VERSION: "20"
+
+# -------------------------
+# Backend Tests + Coverage
+# -------------------------
+backend_test:
+  stage: test
+  image: maven:3.9-eclipse-temurin-17
+  before_script:
+    - cd backend
+  script:
+    - mvn clean test
+  artifacts:
+    when: always
+    expire_in: 14 days
+    paths:
+      - backend/target/surefire-reports/
+      - backend/target/site/jacoco/
+
+# -------------------------
+# Frontend Tests + Coverage
+# -------------------------
+frontend_test:
+  stage: test
+  image: node:20
+  before_script:
+    - cd frontend
+    - npm ci
+  script:
+    - npm test -- --watch=false --browsers=ChromeHeadless --code-coverage
+  artifacts:
+    when: always
+    expire_in: 14 days
+    paths:
+      - frontend/coverage/
+
+# -------------------------
+# Backend Build
+# -------------------------
+backend_build:
+  stage: build
+  image: maven:3.9-eclipse-temurin-17
+  needs: ["backend_test"]
+  before_script:
+    - cd backend
+  script:
+    - mvn clean package -DskipTests
+  artifacts:
+    expire_in: 14 days
+    paths:
+      - backend/target/*.jar
+
+# -------------------------
+# Frontend Build
+# -------------------------
+frontend_build:
+  stage: build
+  image: node:20
+  needs: ["frontend_test"]
+  before_script:
+    - cd frontend
+    - npm ci
+  script:
+    - npm run build
+  artifacts:
+    expire_in: 14 days
+    paths:
+      - frontend/dist/
