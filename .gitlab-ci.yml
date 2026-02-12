@@ -16,7 +16,7 @@ variables:
 # -------------------------
 backend_test:
   stage: test
-  image: maven:3.9-eclipse-temurin-17
+  image: maven:3.9-eclipse-temurin-21
   before_script:
     - cd backend
   script:
@@ -59,7 +59,7 @@ frontend_test:
 # -------------------------
 backend_build:
   stage: build
-  image: maven:3.9-eclipse-temurin-17
+  image: maven:3.9-eclipse-temurin-21
   needs: ["backend_test"]
   before_script:
     - cd backend
