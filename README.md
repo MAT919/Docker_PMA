@@ -39,7 +39,7 @@ Main entities:
 -   NOTIFICATIONS
 
 Many-to-many relationships are handled through junction tables: - USERS
-↔ PROJECTS via PROJECT_MEMBERS - USERS ↔ TASKS via TASK_ASSIGNMENTS
+<-> PROJECTS via PROJECT_MEMBERS - USERS <-> TASKS via TASK_ASSIGNMENTS
 
 The ERD is available in: Schema_Base_de_Donnees_PMT.pdf
 
