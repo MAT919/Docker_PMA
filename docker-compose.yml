@@ -1,12 +1,41 @@
+version: '3.8'
 
 services:
+
   db:
-    image: postgres:16
+    image: postgres:15
+    container_name: pmt-db
+    restart: always
     environment:
-      POSTGRES_DB: pmt
-      POSTGRES_USER: pmt
-      POSTGRES_PASSWORD: pmt
-    ports: ["5432:5432"]
-    volumes: ["pmt_pg:/var/lib/postgresql/data"]
+      POSTGRES_DB: pmt_db
+      POSTGRES_USER: pmt_user
+      POSTGRES_PASSWORD: pmt_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    container_name: pmt-backend
+    restart: always
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/pmt_db
+      SPRING_DATASOURCE_USERNAME: pmt_user
+      SPRING_DATASOURCE_PASSWORD: pmt_password
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build: ./frontend
+    container_name: pmt-frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "4200:80"
+
 volumes:
-  pmt_pg:
+  postgres_data:
