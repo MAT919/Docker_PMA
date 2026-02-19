@@ -34,12 +34,12 @@ backend_test:
 
 frontend_test:
   stage: test
-  image: cypress/included:latest
+  image: node:20
   before_script:
     - cd frontend
     - npm ci
   script:
-    - npm test -- --watch=false --code-coverage; TEST_EXIT=$?
+    - npm run test -- --watch=false --browsers=ChromeHeadless --code-coverage; TEST_EXIT=$?
     - mkdir -p coverage
     - echo "placeholder" > coverage/.keep
     - exit $TEST_EXIT
