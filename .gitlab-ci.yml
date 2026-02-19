@@ -34,12 +34,18 @@ backend_test:
 
 frontend_test:
   stage: test
-  image: cypress/browsers:node-20.11.0-chrome-121.0.6167.184-1-ff-123.0-edge-121.0.2277.128-1
+  image: node:20.19.0-bookworm
   before_script:
+    - apt-get update
+    - apt-get install -y chromium
+    - export CHROME_BIN=/usr/bin/chromium
     - cd frontend
     - npm ci
   script:
-    - npm test -- --watch=false --browsers=ChromeHeadless --coverage; TEST_EXIT=$?
+    - set +e
+    - npm test -- --watch=false --browsers=ChromeHeadless --coverage
+    - TEST_EXIT=$?
+    - set -e
     - mkdir -p coverage
     - echo "placeholder" > coverage/.keep
     - exit $TEST_EXIT
