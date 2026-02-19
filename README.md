@@ -38,8 +38,9 @@ Main entities:
 -   INVITATIONS
 -   NOTIFICATIONS
 
-Many-to-many relationships are handled through junction tables: - USERS
-<-> PROJECTS via PROJECT_MEMBERS - USERS <-> TASKS via TASK_ASSIGNMENTS
+Many-to-many relationships are handled through junction tables: 
+    - USERS <-> PROJECTS via PROJECT_MEMBERS 
+    - USERS <-> TASKS via TASK_ASSIGNMENTS
 
 The ERD is available in: Schema_Base_de_Donnees_PMT.pdf
 
@@ -47,19 +48,20 @@ The ERD is available in: Schema_Base_de_Donnees_PMT.pdf
 
 ## Running the Application
 
-### Option 1 — Using Docker
+### Option 1 : Using Docker
 
 ```bash
 docker-compose up --build
 ```
 
 
-Application URLs: - Frontend: http://localhost:4200 - Backend:
-http://localhost:8080
+Application URLs: 
+    - Frontend: http://localhost:4200 
+    - Backend: http://localhost:8080
 
 ------------------------------------------------------------------------
 
-### Option 2 --- Run Manually
+### Option 2 : Run Manually
 
 #### Backend
 
