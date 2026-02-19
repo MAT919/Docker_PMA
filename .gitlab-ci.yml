@@ -34,17 +34,15 @@ backend_test:
 
 frontend_test:
   stage: test
-  image: cypress/browsers:node18.18.0-chrome118-ff117
+  image: cypress/included:latest
   before_script:
     - cd frontend
     - npm ci
   script:
-    - |
-      npm test -- --watch=false --browsers=ChromeHeadless --code-coverage
-      TEST_EXIT=$?
-      mkdir -p coverage
-      echo "placeholder" > coverage/.keep
-      exit $TEST_EXIT
+    - npm test -- --watch=false --code-coverage; TEST_EXIT=$?
+    - mkdir -p coverage
+    - echo "placeholder" > coverage/.keep
+    - exit $TEST_EXIT
   artifacts:
     when: always
     expire_in: 14 days
