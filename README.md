@@ -18,7 +18,7 @@ The application follows a full-stack architecture:
 -   Backend: Spring Boot (Java)
 -   Database: PostgreSQL
 -   Containerization: Docker & Docker Compose
--   CI/CD: GitHub Actions
+-   CI/CD: GitLab CI/CD
 -   Code Coverage: JaCoCo (backend) & Istanbul (frontend)
 
 ------------------------------------------------------------------------
@@ -47,8 +47,12 @@ The ERD is available in: Schema_Base_de_Donnees_PMT.pdf
 
 ## Running the Application
 
-### Option 1 --- Using Docker 
+### Option 1 — Using Docker
+
+```bash
 docker-compose up --build
+```
+
 
 Application URLs: - Frontend: http://localhost:4200 - Backend:
 http://localhost:8080
@@ -93,8 +97,8 @@ frontend/coverage/index.html
 
 ### Backend (JaCoCo)
 
--   Instruction Coverage: 75%
--   Branch Coverage: 68%
+-   Instruction Coverage: 96%
+-   Branch Coverage: 83%
 
 ### Frontend (Angular)
 
@@ -103,33 +107,36 @@ frontend/coverage/index.html
 -   Functions: 100%
 -   Lines: 100%
 
-Coverage reports are included in:\
-coverage-reports/
+Coverage reports are available in coverage-reports/
 
 ------------------------------------------------------------------------
 
 ## CI/CD Pipeline
 
 The CI/CD pipeline:
+1. Runs backend tests
+2. Runs frontend tests
+3. Builds backend
+4. Builds frontend
 
-1.  Builds backend\
-2.  Runs backend tests\
-3.  Generates coverage report\
-4.  Builds frontend\
-5.  Runs frontend tests\
-6.  Builds Docker images
 
-Pipeline configuration is available in:\
-.github/workflows/
+Pipeline configuration is available in:
+.gitlab-ci.yml
 
 ------------------------------------------------------------------------
 
 ## Docker
 
-Docker images are built using: - backend/Dockerfile -
-frontend/Dockerfile
+The project provides:
 
-Docker Compose orchestrates: - Backend - Frontend - PostgreSQL
+- backend/Dockerfile
+- frontend/Dockerfile
+- docker-compose.yml
+
+Docker Compose starts:
+- PostgreSQL
+- Spring Boot backend
+- Angular frontend
 
 ------------------------------------------------------------------------
 
