@@ -63,15 +63,19 @@ http://localhost:8080
 
 #### Backend
 
+```bash
 cd backend\
 mvn clean install\
 mvn spring-boot:run
+```
 
 #### Frontend
 
+```bash
 cd frontend\
 npm install\
 ng serve
+```
 
 ------------------------------------------------------------------------
 
@@ -79,14 +83,18 @@ ng serve
 
 ### Backend
 
+```bash
 mvn test
+```
 
 Coverage report generated at:\
 backend/target/site/jacoco/index.html
 
 ### Frontend
 
+```bash
 ng test --coverage
+```
 
 Coverage report generated at:\
 frontend/coverage/index.html
