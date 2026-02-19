@@ -34,7 +34,7 @@ backend_test:
 
 frontend_test:
   stage: test
-  image: node:20
+  image: cypress/browsers:node-20.11.0-chrome-121.0.6167.184-1-ff-123.0-edge-121.0.2277.128-1
   before_script:
     - cd frontend
     - npm ci
