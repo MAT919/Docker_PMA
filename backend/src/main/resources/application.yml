@@ -1,9 +1,9 @@
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/pmt_db?currentSchema=pmt
-    username: postgres
-    password: dima9494
+    url: jdbc:postgresql://db:5432/pmt_db
+    username: pmt_admin
+    password: pmt_admin_pass
   jpa:
     hibernate:
       ddl-auto: update
@@ -11,6 +11,7 @@ spring:
       hibernate:
         format_sql: true
         default_schema: pmt
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
 server:
   port: 8080
 
